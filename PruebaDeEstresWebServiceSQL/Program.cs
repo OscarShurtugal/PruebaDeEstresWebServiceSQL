@@ -33,6 +33,7 @@ namespace PruebaDeEstresWebServiceSQL
             thread2.IsBackground = true;
             thread3.IsBackground = true;
             thread4.IsBackground = true;
+            
             thread1.Start();
             thread2.Start();
             thread3.Start();
@@ -142,6 +143,7 @@ namespace PruebaDeEstresWebServiceSQL
                     Console.WriteLine("THREAD 1 Ejecutado: IMSI: " + vIMSI_TEMP + " DN: " + vDN_TEMP);
 
                     writeToFile(writer, vIMSI_TEMP, "Thread 1");
+                    
                 }
 
                 catch (Exception e)
@@ -410,7 +412,10 @@ namespace PruebaDeEstresWebServiceSQL
             int vimsi = 0;
             do {
                 vimsi = procesoDBStoredProcedureThread4();
-                
+
+                Thread.Sleep(new Random().Next(50,100));
+                //updateRowWebService1_T4(vimsi, "Thread 4");
+
             } while (vimsi != 0);
             
 
@@ -432,6 +437,8 @@ namespace PruebaDeEstresWebServiceSQL
             do
             {
                 vimsi = procesoDBStoredProcedureThread3();
+                Thread.Sleep(new Random().Next(50, 100));
+                //updateRowWebService1_T3(vimsi, "Thread 3");
 
             } while (vimsi != 0);
 
@@ -452,6 +459,8 @@ namespace PruebaDeEstresWebServiceSQL
             do
             {
                 vimsi = procesoDBStoredProcedureThread2();
+                Thread.Sleep(new Random().Next(50, 100));
+                //updateRowWebService1_T2(vimsi, "Thread 2");
 
             } while (vimsi != 0);
         }
@@ -468,9 +477,244 @@ namespace PruebaDeEstresWebServiceSQL
             do
             {
                 vimsi = procesoDBStoredProcedureThread1();
+                Thread.Sleep(new Random().Next(50, 100));
+                //updateRowWebService1_T1(vimsi, "Thread 1");
 
             } while (vimsi != 0);
         }
+
+        private static void updateRowWebService1_T1(int vimsi, string v)
+        {
+            Console.WriteLine("Getting db connection...");
+            SqlConnection con = DBSQLServerUtils.GetDBConnection("MX17-MEX018012", "Prueba", "", "");
+            //Data Source = MX17 - MEX018012; Initial Catalog = Prueba; Integrated Security = True
+            try
+            {
+                Console.WriteLine("Opening connection...");
+                con.Open();
+                Console.WriteLine("Connection successful!");
+
+                try
+                {
+
+                    string sql = "";
+                    SqlCommand cmd = new SqlCommand();
+
+                    cmd.Connection = con;
+                    
+                    
+                    sql = "UPDATE PruebaDeConsultaMultiple " +
+                        "SET RESULTADO_WS1 = 'EJECUTADO' WHERE" +
+                        " IMSI_TEMP = '" + vimsi + "' and MAQUINA_VIRTUAL = '" + v+ "'";
+
+                
+                     cmd.CommandText = sql;
+                    //cmd.ExecuteNonQuery();
+
+
+
+
+                    //cmd.ExecuteNonQuery();
+
+                    Console.WriteLine("Rows Affected: " + cmd.ExecuteNonQuery());
+
+
+
+                }
+
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error: " + e.Message);
+                    Console.WriteLine(e.StackTrace);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: " + e.Message);
+            }
+
+            finally
+            {
+                con.Close();
+            }
+       
+            //Console.ReadLine();
+        }
+
+        private static void updateRowWebService1_T2(int vimsi, string v)
+        {
+            Console.WriteLine("Getting db connection...");
+            SqlConnection con = DBSQLServerUtils.GetDBConnection("MX17-MEX018012", "Prueba", "", "");
+            //Data Source = MX17 - MEX018012; Initial Catalog = Prueba; Integrated Security = True
+            try
+            {
+                Console.WriteLine("Opening connection...");
+                con.Open();
+                Console.WriteLine("Connection successful!");
+
+                try
+                {
+
+                    string sql = "";
+                    SqlCommand cmd = new SqlCommand();
+
+                    cmd.Connection = con;
+
+
+                    sql = "UPDATE PruebaDeConsultaMultiple " +
+                        "SET RESULTADO_WS1 = 'EJECUTADO' WHERE" +
+                        " IMSI_TEMP = '" + vimsi + "' and MAQUINA_VIRTUAL = '" + v + "'";
+
+
+                    cmd.CommandText = sql;
+                    //cmd.ExecuteNonQuery();
+
+
+
+
+                    //cmd.ExecuteNonQuery();
+
+                    Console.WriteLine("Rows Affected: " + cmd.ExecuteNonQuery());
+
+
+
+                }
+
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error: " + e.Message);
+                    Console.WriteLine(e.StackTrace);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: " + e.Message);
+            }
+
+            finally
+            {
+                con.Close();
+            }
+
+            //Console.ReadLine();
+        }
+
+        private static void updateRowWebService1_T3(int vimsi, string v)
+        {
+            Console.WriteLine("Getting db connection...");
+            SqlConnection con = DBSQLServerUtils.GetDBConnection("MX17-MEX018012", "Prueba", "", "");
+            //Data Source = MX17 - MEX018012; Initial Catalog = Prueba; Integrated Security = True
+            try
+            {
+                Console.WriteLine("Opening connection...");
+                con.Open();
+                Console.WriteLine("Connection successful!");
+
+                try
+                {
+
+                    string sql = "";
+                    SqlCommand cmd = new SqlCommand();
+
+                    cmd.Connection = con;
+
+
+                    sql = "UPDATE PruebaDeConsultaMultiple " +
+                        "SET RESULTADO_WS1 = 'EJECUTADO' WHERE" +
+                        " IMSI_TEMP = '" + vimsi + "' and MAQUINA_VIRTUAL = '" + v + "'";
+
+
+                    cmd.CommandText = sql;
+                    //cmd.ExecuteNonQuery();
+
+
+
+
+                    //cmd.ExecuteNonQuery();
+
+                    Console.WriteLine("Rows Affected: " + cmd.ExecuteNonQuery());
+
+
+
+                }
+
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error: " + e.Message);
+                    Console.WriteLine(e.StackTrace);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: " + e.Message);
+            }
+
+            finally
+            {
+                con.Close();
+            }
+
+            //Console.ReadLine();
+        }
+
+        private static void updateRowWebService1_T4(int vimsi, string v)
+        {
+            Console.WriteLine("Getting db connection...");
+            SqlConnection con = DBSQLServerUtils.GetDBConnection("MX17-MEX018012", "Prueba", "", "");
+            //Data Source = MX17 - MEX018012; Initial Catalog = Prueba; Integrated Security = True
+            try
+            {
+                Console.WriteLine("Opening connection...");
+                con.Open();
+                Console.WriteLine("Connection successful!");
+
+                try
+                {
+
+                    string sql = "";
+                    SqlCommand cmd = new SqlCommand();
+
+                    cmd.Connection = con;
+
+
+                    sql = "UPDATE PruebaDeConsultaMultiple " +
+                        "SET RESULTADO_WS1 = 'EJECUTADO' WHERE" +
+                        " IMSI_TEMP = '" + vimsi + "' and MAQUINA_VIRTUAL = '" + v + "'";
+
+
+                    cmd.CommandText = sql;
+                    //cmd.ExecuteNonQuery();
+
+
+
+
+                    //cmd.ExecuteNonQuery();
+
+                    Console.WriteLine("Rows Affected: " + cmd.ExecuteNonQuery());
+
+
+
+                }
+
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error: " + e.Message);
+                    Console.WriteLine(e.StackTrace);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: " + e.Message);
+            }
+
+            finally
+            {
+                con.Close();
+            }
+
+            //Console.ReadLine();
+        }
+
 
         /// <summary>
         /// Este metodo es una prueba de uso de una variable Tipo tabla que me permita hacer mi procedimiento de inserción de mis datos a una variable temporal
