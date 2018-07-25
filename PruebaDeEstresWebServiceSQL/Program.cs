@@ -11,9 +11,10 @@ using System.Data;
 
 namespace PruebaDeEstresWebServiceSQL
 {
+    
     class Program
     {
-        static  StreamWriter writer = new StreamWriter(@"C:\Users\oscarsanchez2\Desktop\pruebaThread.txt");
+        static StreamWriter writer = new StreamWriter(@"C:\Users\oscarsanchez2\Desktop\pruebaThread.txt");
 
         static void Main(string[] args)
         {
@@ -131,11 +132,16 @@ namespace PruebaDeEstresWebServiceSQL
                     cmd.Parameters.Add(new SqlParameter("@vIMSI_TEMP", SqlDbType.Int)).Direction = ParameterDirection.Output;
 
                     cmd.ExecuteNonQuery();
+
+                    if(!(cmd.Parameters["@vDN_TEMP"].Value is null))
                     vDN_TEMP = Convert.ToInt32(cmd.Parameters["@vDN_TEMP"].Value);
-                    vIMSI_TEMP = Convert.ToInt32(cmd.Parameters["@vIMSI_TEMP"].Value);
+                    if (!(cmd.Parameters["@vIMSI_TEMP"].Value is null))
+
+                        vIMSI_TEMP = Convert.ToInt32(cmd.Parameters["@vIMSI_TEMP"].Value);
                     //Console.WriteLine("Rows Affected: " + cmd.ExecuteNonQuery());
                     Console.WriteLine("THREAD 1 Ejecutado: IMSI: " + vIMSI_TEMP + " DN: " + vDN_TEMP);
 
+                    writeToFile(writer, vIMSI_TEMP, "Thread 1");
                 }
 
                 catch (Exception e)
@@ -190,11 +196,15 @@ namespace PruebaDeEstresWebServiceSQL
                     cmd.Parameters.Add(new SqlParameter("@vIMSI_TEMP", SqlDbType.Int)).Direction = ParameterDirection.Output;
 
                     cmd.ExecuteNonQuery();
+                    if (!(cmd.Parameters["@vDN_TEMP"].Value is null))
                     vDN_TEMP = Convert.ToInt32(cmd.Parameters["@vDN_TEMP"].Value);
+                    if (!(cmd.Parameters["@vIMSI_TEMP"].Value is null))
+                            
                     vIMSI_TEMP = Convert.ToInt32(cmd.Parameters["@vIMSI_TEMP"].Value);
                     //Console.WriteLine("Rows Affected: " + cmd.ExecuteNonQuery());
                     Console.WriteLine("thread 2 Ejecutado: IMSI: " + vIMSI_TEMP + " DN: " + vDN_TEMP);
 
+                    writeToFile(writer, vIMSI_TEMP, "Thread 2");
                 }
 
                 catch (Exception e)
@@ -250,11 +260,16 @@ namespace PruebaDeEstresWebServiceSQL
                     cmd.Parameters.Add(new SqlParameter("@vIMSI_TEMP", SqlDbType.Int)).Direction = ParameterDirection.Output;
 
                     cmd.ExecuteNonQuery();
-                    vDN_TEMP = Convert.ToInt32(cmd.Parameters["@vDN_TEMP"].Value);
+
+                    if (!(cmd.Parameters["@vDN_TEMP"].Value is null))
+                            vDN_TEMP = Convert.ToInt32(cmd.Parameters["@vDN_TEMP"].Value);
+                        if (!(cmd.Parameters["@vIMSI_TEMP"].Value is null))
+
                     vIMSI_TEMP = Convert.ToInt32(cmd.Parameters["@vIMSI_TEMP"].Value);
                     //Console.WriteLine("Rows Affected: " + cmd.ExecuteNonQuery());
                     Console.WriteLine("THREAD 3 Ejecutado: IMSI: " + vIMSI_TEMP + " DN: " + vDN_TEMP);
 
+                    writeToFile(writer, vIMSI_TEMP, "Thread 3");
                 }
 
                 catch (Exception e)
@@ -294,7 +309,6 @@ namespace PruebaDeEstresWebServiceSQL
                 try
                 {
 
-
                     SqlCommand cmd = new SqlCommand("SP_PruebaConsultaMultiple", con);
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -309,11 +323,15 @@ namespace PruebaDeEstresWebServiceSQL
                     cmd.Parameters.Add(new SqlParameter("@vIMSI_TEMP", SqlDbType.Int)).Direction = ParameterDirection.Output;
 
                     cmd.ExecuteNonQuery();
-                    vDN_TEMP = Convert.ToInt32(cmd.Parameters["@vDN_TEMP"].Value);
+
+                    if (!(cmd.Parameters["@vDN_TEMP"].Value is null))
+                            vDN_TEMP = Convert.ToInt32(cmd.Parameters["@vDN_TEMP"].Value);
+                        if (!(cmd.Parameters["@vIMSI_TEMP"].Value is null))
                     vIMSI_TEMP = Convert.ToInt32(cmd.Parameters["@vIMSI_TEMP"].Value);
                     //Console.WriteLine("Rows Affected: " + cmd.ExecuteNonQuery());
                     Console.WriteLine("thread 4 Ejecutado: IMSI: " + vIMSI_TEMP + " DN: " + vDN_TEMP);
 
+                    writeToFile(writer, vIMSI_TEMP, "Thread 4");
                 }
 
                 catch (Exception e)
